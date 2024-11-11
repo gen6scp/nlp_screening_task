@@ -192,6 +192,6 @@ python semantic_nlp_pipeline.py collection_with_abstracts.csv output.csv --thres
 ```
 
 ## License
-This project is licensed under the MIT License. Please see the `LICENSE` file for more details.
+This project is licensed under the MIT License. Please see the [LICENSE](https://github.com/gen6scp/nlp_screening_task/LICENSE) file for more details.
 
 # nlp_screening_task
