@@ -1,0 +1,14 @@
+version: '2.4'  # Compatible version for Docker Compose v1.25.0
+
+services:
+  nlp:
+    build: 
+     context: .
+     dockerfile: Dockerfile.nlp  # Assuming Dockerfile is in the current directory
+    image: nlp
+    volumes:
+      - /tmp/nlp_io:/workspace/nlp_io
+    tty: true
+    #runtime: nvidia  # Enable NVIDIA GPU support (requires nvidia-docker2 to be installed)
+
+    

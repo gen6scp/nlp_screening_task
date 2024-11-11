@@ -1,0 +1,28 @@
+FROM ubuntu:20.04
+USER root
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update -y && \
+        apt-get install -y curl python3-pip python-is-python3 git emacs && \
+        apt-get clean && \
+        rm -rf /var/lib/apt/lists/*
+
+
+RUN mkdir -pv /workspace
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+
+# Copy data and script
+COPY collection_with_abstracts.csv /workspace
+COPY semantic_nlp.py /workspace
+
+# Add a new user and prepare working directories
+RUN adduser --disabled-password --gecos '' user && chown -R user:user /workspace
+
+# Switch to the non-root user
+USER user
+
+ENV SHELL=/bin/bash
+WORKDIR /workspace/
+
