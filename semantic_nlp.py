@@ -225,12 +225,12 @@ def generate_results(df, threshold):
 
     print("\nStatistical Overview:")
     print(f"Total number of papers: {total_papers}")
-    print(f"Number of unique methods used: {num_methods_used}")
-    print(f"Most common method used: {most_common_method} ({most_common_method_count} occurrences)")
-    print(f"Number of unique method types: {num_method_types}")
+    print(f"\nNumber of unique method types: {num_method_types}")
     print(f"Most common method type: {most_common_method_type} ({most_common_method_type_count} occurrences)")
     print("\nTop Method Types by Frequency:")
     print(top_method_types)
+    print(f"\n\nNumber of unique methods used: {num_methods_used}")
+    print(f"Most common method used: {most_common_method} ({most_common_method_count} occurrences)")
     print("\nTop Methods by Frequency:")
     print(top_methods)
 

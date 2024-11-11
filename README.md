@@ -75,7 +75,8 @@ The final step involves generating visual summaries to better understand the dat
 - A **bar chart** (`distribution_of_papers_by_methods_used_grouped.png`) that displays the distribution of specific methods used, with less common methods grouped into an "Other" category for readability.
 - A **pie chart** (`proportion_of_papers_by_methods_used_grouped.png`) to show the proportion of each method used in a more compact form.
 
-Finally, table of methods type and 
+Finally, this step displays summary tables of `methods type` and `method used`.
+
 
 ## Outputs
 
@@ -124,8 +125,7 @@ The following are the resulting dataset statistics:
 ```
 Statistical Overview:
 Total number of papers: 860
-Number of unique methods used: 117
-Most common method used: Unknown (562 occurrences)
+
 Number of unique method types: 4
 Most common method type: other (588 occurrences)
 
@@ -136,6 +136,10 @@ Top Method Types by Frequency:
 2      text mining         16    1.860465
 3             both          6    0.697674
 
+
+Number of unique methods used: 117
+Most common method used: Unknown (562 occurrences)
+
 Top Methods by Frequency:
                                Method  Frequency  Percentage
 0                             Unknown        562   65.348837
@@ -145,15 +149,15 @@ Top Methods by Frequency:
 4                       random forest         14    1.627907
 5  random forest, logistic regression          9    1.046512
 6                   linear regression          7    0.813953
-7  decision tree, logistic regression          6    0.697674
-8                           Inception          6    0.697674
-9                                 RNN          5    0.581395
+7                           Inception          6    0.697674
+8  decision tree, logistic regression          6    0.697674
+9                         autoencoder          5    0.581395
 
 ```
 
 These statistics and visualizations can be helpful for researchers or analysts who want to understand the trends in deep learning and machine learning applications across virology-related literature.
 
-- **Total Number of Papers After Filtering**: The filtered dataset contained 860 papers deemed relevant based on TF-IDF cosine similarity, ensuring high relevance.
+- **Total Number of Papers After Filtering**: The filtered dataset contained 860 papers deemed relevant based on TF-IDF cosine similarity (=0.1), ensuring high relevance.
 - **Distribution by Method Type**: 
   - **Other**: 68.4% (approximately 588 papers)
   - **Computer Vision**: 29.1% (approximately 250 papers)
