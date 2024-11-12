@@ -1,4 +1,4 @@
-# Semantic Analysis and Classification of Virology Papers
+# Semantic Analysis and Classification of Virology and Epidemiology Papers
 
 ## Overview
 
@@ -10,45 +10,33 @@ The workflow consists of five major steps:
 2. **Filtering Relevant Papers**: Identify papers that are relevant to virology and epidemiology based on semantic similarity using a TF-IDF approach.
 3. **Classifying Papers by Method Type**: Classify the relevant papers into categories like `text mining`, `computer vision`, `both`, or `other`.
 4. **Extracting Methods Used**: Identify specific deep learning and machine learning methods mentioned in each abstract.
-5. **Generating Visualizations**: Create plots that summarize the classification distribution.
+5. **Generating Visualizations and Tables**: Create plots and tables that summarize the classification distribution.
 
 ## Requirements
-To run this project, the following Python packages are required:
-
-- `pandas==1.5.3`
-- `scikit-learn==1.2.0`
-- `matplotlib==3.7.1`
-- `numpy==1.23.5`
-
-You can install these packages using:
+To run this project, the following Python packages are required. You can install these packages using `pip`:
 ```sh
 pip install pandas==1.5.3 scikit-learn==1.2.0 matplotlib==3.7.1 numpy==1.23.5
 ```
 
 ## Running the Workflow
 
-The main script requires the following arguments:
-1. The input CSV file containing the collection of abstracts.
-2. The output CSV file where the filtered and classified results will be saved.
-3. (Optional) A threshold value for grouping less frequent methods in the visualization, defaulting to 7.
-4. (Optional) A similarity threshold for TF-IDF filtering, defaulting to 0.1.
+The [main script (semantic_nlp.py)](semantic_nlp.py) requires the following arguments:
 
-Example command to run the script:
 ```sh
-python semantic_nlp_pipeline.py collection_with_abstracts.csv output.csv --threshold 7 --similarity_threshold 0.1
+python semantic_nlp.py collection_with_abstracts.csv output.csv --threshold 7 --similarity_threshold 0.1
 ```
-- **collection_with_abstracts.csv**: The path to the input CSV file containing paper data.
-- **output.csv**: The path to save the filtered, classified papers with extracted method information.
+- [**collection_with_abstracts.csv**](collection_with_abstracts.csv): The path to the input CSV file containing paper data.
+- [**output.csv**](output.csv): The path to save the filtered, classified papers with extracted method information.
 - **--threshold**: (Optional) Threshold value for grouping less common methods in the plots (default: 7).
 - **--similarity_threshold**: (Optional) Similarity threshold for TF-IDF-based filtering (default: 0.1).
 
 ## Workflow Steps Explained
 
 ### 1. Data Loading and Preprocessing
-The first step is to load the provided dataset (`collection_with_abstracts.csv`) and clean it by removing rows without an abstract. This ensures that we only process papers containing meaningful content.
+The first step is to load the provided dataset ([collection_with_abstracts.csv](collection_with_abstracts.csv)) and clean it by removing rows without an abstract. This ensures that we only process papers containing meaningful content.
 
 ### 2. Filtering Relevant Papers
-This step involves using **TF-IDF (Term Frequency-Inverse Document Frequency)** vectorization combined with **cosine similarity** to filter relevant papers. The abstracts are transformed into numerical feature vectors, and then compared against predefined topics such as "deep learning", "neural network", "virology", and "epidemiology". Papers with a cosine similarity above a set threshold (default 0.1) are selected as relevant.
+This step involves using lightweight [**TF-IDF (Term Frequency-Inverse Document Frequency)**](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html) vectorization combined with **cosine similarity** to filter relevant papers. The abstracts are transformed into numerical feature vectors, and then compared against predefined topics such as "deep learning", "neural network", "virology", and "epidemiology". Papers with a cosine similarity above a set threshold (default 0.1) are selected as relevant.
 
 #### Why is this approach more effective than keyword-based filtering?
 
@@ -65,17 +53,19 @@ The filtered papers are classified into categories based on keywords found in th
 - **Other**: If none of these categories match.
 
 ### 4. Extracting Methods Used
-The script extracts the specific deep learning and machine learning methods mentioned in each abstract using regular expressions to find methods such as `CNN`, `RNN`, `transformer`, `SVM`, `Random Forest`, etc. This gives a detailed overview of the computational techniques used in the papers.
+The script extracts the specific deep learning and machine learning methods mentioned in each abstract using regular expressions to find methods such as `CNN`, `RNN`, `transformer`, `SVM`, `Random Forest`, etc. Many of the machine learning and deep learning methods are standard, well-defined terms that do not require complex semantic understanding. Regular expression matching is straightforward and can be executed using basic text processing (e.g., without powerful GPUs or specialized semantic software).
+
+This step gives a detailed overview of the computational techniques used in the papers.
 
 ### 5. Generating Visualizations and Statistical Insights
 The final step involves generating visual summaries to better understand the dataset:
 
-- A **bar chart** (`distribution_of_papers_by_method_type.png`) that shows the number of papers in each category.
-- A **pie chart** (`proportion_of_papers_by_method_type.png`) that visualizes the proportions of different classification types.
-- A **bar chart** (`distribution_of_papers_by_methods_used_grouped.png`) that displays the distribution of specific methods used, with less common methods grouped into an "Other" category for readability.
-- A **pie chart** (`proportion_of_papers_by_methods_used_grouped.png`) to show the proportion of each method used in a more compact form.
+- A **bar chart** ([`distribution_of_papers_by_method_type.png`](img/distribution_of_papers_by_method_type.png)) that shows the number of papers in each category.
+- A **pie chart** ([`proportion_of_papers_by_method_type.png`](img/proportion_of_papers_by_method_type.png)) that visualizes the proportions of different classification types.
+- A **bar chart** ([`distribution_of_papers_by_methods_used_grouped.png`](img/distribution_of_papers_by_methods_used_grouped.png)) that displays the distribution of specific methods used, with less common methods grouped into an "Other" category for readability.
+- A **pie chart** ([`proportion_of_papers_by_methods_used_grouped.png`](img/proportion_of_papers_by_methods_used_grouped.png)) to show the proportion of each method used in a more compact form.
 
-Finally, this step displays summary tables of `methods type` and `method used`.
+Finally, this step also displays summary tables of `method type` and `methods used`.
 
 
 ## Outputs
@@ -157,12 +147,12 @@ Top Methods by Frequency:
 
 These statistics and visualizations can be helpful for researchers or analysts who want to understand the trends in deep learning and machine learning applications across virology-related literature.
 
-- **Total Number of Papers After Filtering**: The filtered dataset contained 860 papers deemed relevant based on TF-IDF cosine similarity (=0.1), ensuring high relevance.
+- **Total Number of Papers After Filtering**: The filtered dataset contained 860 papers deemed relevant based on TF-IDF cosine similarity (=0.1).
 - **Distribution by Method Type**: 
   - **Other**: 68.4% (approximately 588 papers)
   - **Computer Vision**: 29.1% (approximately 250 papers)
   - **Text Mining**: 1.9% (approximately 16 papers)
-  - **Both**: 1.2% (approximately 6 papers)
+  - **Both**: 0.7% (approximately 6 papers)
 
 The distribution by method type indicates that the majority of the filtered papers fall into the "other" category, with computer vision being a major focus among the rest.
 
@@ -170,10 +160,11 @@ The distribution by method type indicates that the majority of the filtered pape
   - **Unknown**: 65.3% of papers did not explicitly mention a recognizable method, indicating these abstracts did not specify computational methods clearly.
   - **Logistic Regression**: 7.0% of papers, showing this is a frequently applied technique.
   - **Deep Neural Network (DNN)**: 4.3% of papers utilize **CNN** (2.4%) + **LSTM** (1.9%) methods. 
+  - **Random Forest**: Smaller (1.6%) but a notable method.
   - **Other**: 19.9%, where less common methods are grouped.
-  - Smaller but notable mentions included method like **Random Forest** (1.6%).
 
-  These results highlight the predominance of certain traditional and straightforward machine learning methods, such as logistic regression. Although we did not check the correlation between year published and methods used, DNN may have a notable rise in recent years.
+
+These results highlight the predominance of certain traditional and straightforward machine learning methods, such as logistic regression. Although we did not check a correlation between year published and methods used, DNN may have an apparent rise in recent years.
 
 
 
@@ -188,10 +179,17 @@ $ docker-compose run nlp /bin/bash
 
 In the Docker container, run the following command.
 ```
-python semantic_nlp_pipeline.py collection_with_abstracts.csv output.csv --threshold 7 --similarity_threshold 0.1
+python semantic_nlp.py collection_with_abstracts.csv output.csv --threshold 7 --similarity_threshold 0.1
+
 ```
+
+## Reference
+
+   - [Book: Introduction to Information Retrieval](https://nlp.stanford.edu/IR-book/)
+   - [Scikit-Learn: TfidfVectorizer](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html)
+
 
 ## License
 This project is licensed under the MIT License. Please see the [LICENSE](https://github.com/gen6scp/nlp_screening_task/blob/main/LICENSE) file for more details.
 
-# nlp_screening_task
+

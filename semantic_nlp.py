@@ -28,7 +28,7 @@ def load_and_preprocess_data(file_path):
     return df
 
 # Step 2: Improved Filtering Using TF-IDF
-def filter_relevant_papers(df, target_topics, threshold=0.2):
+def filter_relevant_papers(df, target_topics, threshold=0.1):
     """
     Purpose: Filter papers that are relevant using TF-IDF-based similarity to given topics.
     
@@ -260,7 +260,7 @@ def main():
     parser.add_argument('input_file', type=str, help='Path to the input CSV file containing paper data')
     parser.add_argument('output_file', type=str, help='Path to the output CSV file to save filtered results')
     parser.add_argument('--threshold', type=int, default=7, help='Threshold for grouping less frequent methods (default: 7)')
-    parser.add_argument('--similarity_threshold', type=float, default=0.2, help='Threshold for TF-IDF similarity filtering (default: 0.2)')
+    parser.add_argument('--similarity_threshold', type=float, default=0.1, help='Threshold for TF-IDF similarity filtering (default: 0.1)')
     args = parser.parse_args()
 
     # Step 1: Load and preprocess data
